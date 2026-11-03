@@ -1,21 +1,18 @@
 package algaworks.curso.resource;
 
 import algaworks.curso.event.RecursoCriadoEvent;
-import algaworks.curso.exception.PessoaInexistenteOuInativaException;
-import algaworks.curso.execeptionHandler.AlgamoneyExeceptionHandler;
 import algaworks.curso.model.Lancamento;
 import algaworks.curso.repository.LancamentoRepository;
+import algaworks.curso.repository.filter.LancamentoFilter;
 import algaworks.curso.service.LancamentoService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -33,8 +30,8 @@ public class LancamentoResouce {
 
 
     @GetMapping
-    public List<Lancamento> listar() {
-        return lancamentoRepository.findAll();
+    public List<Lancamento> pesquisar(LancamentoFilter lancamentoFilter) {
+        return lancamentoRepository.filtrar(lancamentoFilter);
     }
 
     @GetMapping("/{codigo}")
