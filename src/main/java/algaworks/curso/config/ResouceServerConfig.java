@@ -22,9 +22,10 @@ public class ResouceServerConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/categorias", "/categorias/**").permitAll()
+                        .requestMatchers("/login", "/error").permitAll()
                         .anyRequest().authenticated())
+                .formLogin(Customizer.withDefaults())
                 .oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults()))
-                .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(csrf -> csrf.disable());
         return http.build();
     }

@@ -58,7 +58,9 @@ public class AuthorizationServerConfig {
                 .scope("write")
                 .clientSettings(ClientSettings.builder().requireProofKey(false).build())
                 .tokenSettings(TokenSettings.builder()
-                        .accessTokenTimeToLive(Duration.ofSeconds(1800))
+                        .accessTokenTimeToLive(Duration.ofSeconds(20))
+                        .refreshTokenTimeToLive(Duration.ofDays(1))
+                        .reuseRefreshTokens(false)
                         .build())
                 .build();
         return new InMemoryRegisteredClientRepository(angular);
